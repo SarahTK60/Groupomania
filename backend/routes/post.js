@@ -32,7 +32,7 @@ router.delete('/:id', auth, postCtrl.deletePost);
 
 // DELETE /api/posts/admin/:id
 // Route that removes the post with the id provided in database by the admin
-router.delete('/admin/:id', auth, postCtrl.deletePostByAdmin);
+router.delete('/admin/:id', isAdmin, auth, postCtrl.deletePostByAdmin);
 
 // POST /api/posts/:id/like
 // Route that adds/removes a like/dislike to a post with the id provided

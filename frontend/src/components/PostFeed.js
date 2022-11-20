@@ -138,10 +138,11 @@ function PostFeed() {
 
   const handleAdminUpdatePost = (postId, textContent, file, imageUrl) => {
     const postData = new FormData();
-    if (textContent || file) {
+    if (textContent || file || imageUrl) {
       postData.append("textContent", textContent);
       if (imageUrl) postData.append("keepPreviousImage", true);
       if (file) postData.append("image", file);
+
       axios({
         method: "put",
         url: process.env.REACT_APP_BASE_URL + "api/posts/admin/" + postId,
@@ -151,10 +152,6 @@ function PostFeed() {
         transformRequest: () => postData,
       })
         .then((res) => {
-          console.log(res);
-          if (res.data.errors) {
-            console.log("erreur res.data.errors true");
-          }
           const IdxOfpostToUpdt = posts.findIndex(
             (post) => post._id === postId
           );
@@ -165,14 +162,12 @@ function PostFeed() {
           newPost.textContent = textContent;
           if (response.imageContentUrl) {
             newPost.imageContentUrl = response.imageContentUrl;
-          } else if (postData.keepPreviousImage) {
+          } else if (!file && imageUrl) {
             newPost.imageContentUrl = imageUrl;
           } else {
             newPost.imageContentUrl = "";
           }
-          
           newPost.update_date = response.update_date;
-         
           newPostsList.splice(IdxOfpostToUpdt, 0, newPost);
           setPosts(newPostsList);
           console.log("post modifié !");
