@@ -75,6 +75,8 @@ function UpdateProfil() {
         }
         if (avatarUrl) {
           updatedUser.append("keepPreviousAvatar", true);
+        } else if (!avatarUrl) {
+          updatedUser.append("keepPreviousAvatar", false);
         }
         updatedUser.append("firstname", firstname);
         updatedUser.append("lastname", lastname);
@@ -121,6 +123,8 @@ function UpdateProfil() {
         );
       }
     }
+    setShow(false);
+    window.location = "/";
   };
 
   return (
