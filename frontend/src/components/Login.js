@@ -45,7 +45,7 @@ function Login() {
     ) {
       axios({
         method: "post",
-        url: "http://localhost:5000/api/auth/login/",
+        url: process.env.REACT_APP_BASE_URL + "api/auth/login/",
         data: {
           email,
           password,

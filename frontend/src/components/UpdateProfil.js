@@ -81,7 +81,7 @@ function UpdateProfil() {
 
         axios({
           method: "put",
-          url: process.env.API_URL + "/api/user/" + authenticatedUser._id,
+          url: process.env.REACT_APP_BASE_URL + "api/user/" + authenticatedUser._id,
           headers: {
             Authorization: JSON.parse(localStorage.getItem("token")),
           },

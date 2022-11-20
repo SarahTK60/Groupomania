@@ -137,7 +137,7 @@ function SignUp() {
     ) {
       axios({
         method: "post",
-        url: "http://localhost:5000/api/auth/signup/",
+        url: process.env.REACT_APP_BASE_URL + "api/auth/signup/",
         data: {
           firstname,
           lastname,

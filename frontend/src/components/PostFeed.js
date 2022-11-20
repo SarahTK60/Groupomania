@@ -16,7 +16,7 @@ function PostFeed() {
   const getAllPosts = () => {
     axios({
       method: "get",
-      url: "http://localhost:5000/api/posts/",
+      url: process.env.REACT_APP_BASE_URL + "api/posts/",
       headers: {
         Authorization: JSON.parse(localStorage.getItem("token")),
       },
@@ -48,7 +48,7 @@ function PostFeed() {
 
       axios({
         method: "post",
-        url: "http://localhost:5000/api/posts/",
+        url: process.env.REACT_APP_BASE_URL + "api/posts/",
         headers: {
           Authorization: JSON.parse(localStorage.getItem("token")),
         },
@@ -71,7 +71,7 @@ function PostFeed() {
   const handleLike = (postId) => {
     axios({
       method: "post",
-      url: "http://localhost:5000/api/posts/" + postId + "/like",
+      url: process.env.REACT_APP_BASE_URL + "api/posts/" + postId + "/like",
       headers: {
         Authorization: JSON.parse(localStorage.getItem("token")),
       },
@@ -103,7 +103,7 @@ function PostFeed() {
 
       axios({
         method: "put",
-        url: "http://localhost:5000/api/posts/" + postId,
+        url: process.env.REACT_APP_BASE_URL + "api/posts/" + postId,
         headers: {
           Authorization: JSON.parse(localStorage.getItem("token")),
         },
@@ -144,7 +144,7 @@ function PostFeed() {
       if (file) postData.append("image", file);
       axios({
         method: "put",
-        url: "http://localhost:5000/api/posts/admin/" + postId,
+        url: process.env.REACT_APP_BASE_URL + "api/posts/admin/" + postId,
         headers: {
           Authorization: JSON.parse(localStorage.getItem("token")),
         },
@@ -186,7 +186,7 @@ function PostFeed() {
   const handleDeletePost = (postId) => {
     axios({
       method: "delete",
-      url: "http://localhost:5000/api/posts/" + postId,
+      url: process.env.REACT_APP_BASE_URL + "api/posts/" + postId,
       headers: {
         Authorization: JSON.parse(localStorage.getItem("token")),
       },
@@ -209,7 +209,7 @@ function PostFeed() {
   const handleAdminDeletePost = (postId) => {
     axios({
       method: "delete",
-      url: "http://localhost:5000/api/posts/admin/" + postId,
+      url: process.env.REACT_APP_BASE_URL + "api/admin/" + postId,
       headers: {
         Authorization: JSON.parse(localStorage.getItem("token")),
       },

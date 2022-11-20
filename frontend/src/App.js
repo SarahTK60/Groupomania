@@ -25,7 +25,7 @@ function App() {
     if (token) {
       axios({
         method: "get",
-        url: "http://localhost:5000/api/user/",
+        url: process.env.REACT_APP_BASE_URL + "api/user/",
         headers: {
           Authorization: JSON.parse(localStorage.getItem("token")),
         },

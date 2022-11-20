@@ -14,7 +14,7 @@ function DeleteUser() {
   const handleDeleteUser = (userId) => {
     axios({
       method: "delete",
-      url: "http://localhost:5000/api/user/" + userId,
+      url: process.env.REACT_APP_BASE_URL + "api/user/" + userId,
       headers: {
         Authorization: JSON.parse(localStorage.getItem("token")),
       },
