@@ -36,8 +36,6 @@
 <!-- ABOUT THE PROJECT -->
 ## Présentation
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 Scénario : Pour améliorer la communication entre collègues, Groupomania souhaite la mise en place d'un réseau social interne pour permettre aux employés de se connaître dans un cadre plus informel.
 
 
