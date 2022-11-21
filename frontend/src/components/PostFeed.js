@@ -139,6 +139,7 @@ function PostFeed() {
   const handleAdminUpdatePost = (postId, textContent, file, imageUrl) => {
     const postData = new FormData();
     if (textContent || file || imageUrl) {
+
       postData.append("textContent", textContent);
       if (imageUrl) postData.append("keepPreviousImage", true);
       if (file) postData.append("image", file);
@@ -204,7 +205,7 @@ function PostFeed() {
   const handleAdminDeletePost = (postId) => {
     axios({
       method: "delete",
-      url: process.env.REACT_APP_BASE_URL + "api/admin/" + postId,
+      url: process.env.REACT_APP_BASE_URL + "api/posts/admin/" + postId,
       headers: {
         Authorization: JSON.parse(localStorage.getItem("token")),
       },
@@ -223,7 +224,6 @@ function PostFeed() {
         console.log(err);
       });
   };
-
   
   return (
     <>

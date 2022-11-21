@@ -24,7 +24,7 @@ router.put('/:id', auth, multer, postCtrl.modifyPost);
 
 // PUT /api/posts/admin/:id
 // Route that updates the post with the id provided in database by the admin
-router.put('/:id', auth, isAdmin, multer, postCtrl.modifyPostByAdmin);
+router.put('/admin/:id', auth, isAdmin, multer, postCtrl.modifyPostByAdmin);
 
 // DELETE /api/posts/:id
 // Route that removes the post with the id provided in database by the author
@@ -32,7 +32,7 @@ router.delete('/:id', auth, postCtrl.deletePost);
 
 // DELETE /api/posts/admin/:id
 // Route that removes the post with the id provided in database by the admin
-router.delete('/admin/:id', isAdmin, auth, postCtrl.deletePostByAdmin);
+router.delete('/admin/:id', auth, isAdmin, postCtrl.deletePostByAdmin);
 
 // POST /api/posts/:id/like
 // Route that adds/removes a like/dislike to a post with the id provided
