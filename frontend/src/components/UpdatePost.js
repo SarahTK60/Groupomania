@@ -3,9 +3,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AuthenticatedUserContext from "../context/AuthenticatedUserContext";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 function UpdatePost(props) {
-  const { authenticatedUser } = useContext(AuthenticatedUserContext)
+  const { authenticatedUser } = useContext(AuthenticatedUserContext);
   const isAdmin = authenticatedUser.role;
   const postId = props.postId;
   const [show, setShow] = useState(false);
@@ -32,11 +33,23 @@ function UpdatePost(props) {
     }
   };
 
+  const updatePostTooltip = (props) => (
+    <Tooltip id="button-addImage-tooltip" {...props}>
+      Modifier la publication
+    </Tooltip>
+  );
+
   return (
     <>
-      <Button variant="light" className="text-dark" onClick={handleShow}>
-        <FontAwesomeIcon icon="pen-to-square" />
-      </Button>
+      <OverlayTrigger
+        placement="top"
+        delay={{ show: 250, hide: 400 }}
+        overlay={updatePostTooltip}
+      >
+        <Button variant="light" className="text-dark" onClick={handleShow}>
+          <FontAwesomeIcon icon="pen-to-square" />
+        </Button>
+      </OverlayTrigger>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

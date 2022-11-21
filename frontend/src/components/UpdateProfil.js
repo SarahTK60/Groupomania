@@ -5,10 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import AuthenticatedUserContext from "../context/AuthenticatedUserContext";
 import axios from "axios";
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 function UpdateProfil() {
-  const { authenticatedUser, setAuthenticatedUser } = useContext(AuthenticatedUserContext);
+  const { authenticatedUser, setAuthenticatedUser } = useContext(
+    AuthenticatedUserContext
+  );
 
   const [show, setShow] = useState(false);
 
@@ -30,12 +32,17 @@ function UpdateProfil() {
   const refLastnameError = useRef();
   const refSubmitError = useRef();
 
-
   const changeImage = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
     }
   };
+
+  const deleteImageTooltip = (props) => (
+    <Tooltip id="button-deleteAvatar-tooltip" {...props}>
+      Supprimer l'avatar
+    </Tooltip>
+  );
 
   const checkFirstname = (firstname) => {
     if (firstname.trim() === "") {
@@ -83,7 +90,10 @@ function UpdateProfil() {
 
         axios({
           method: "put",
-          url: process.env.REACT_APP_BASE_URL + "api/user/" + authenticatedUser._id,
+          url:
+            process.env.REACT_APP_BASE_URL +
+            "api/user/" +
+            authenticatedUser._id,
           headers: {
             Authorization: JSON.parse(localStorage.getItem("token")),
           },
@@ -93,8 +103,12 @@ function UpdateProfil() {
             const response = res.data.userObject;
             console.log(response);
             const userUpdated = authenticatedUser;
-            if (firstname) { userUpdated.firstname = firstname } 
-            if (lastname) { userUpdated.lastname = lastname }
+            if (firstname) {
+              userUpdated.firstname = firstname;
+            }
+            if (lastname) {
+              userUpdated.lastname = lastname;
+            }
             if (response.avatarUrl) {
               userUpdated.avatarUrl = response.avatarUrl;
             } else if (!file && avatarUrl) {
@@ -140,35 +154,51 @@ function UpdateProfil() {
         <Modal.Body>
           <Form onSubmit={handleUpdateProfil}>
             <Form.Group className="mb-3">
-              <div>
+              <div className="d-flex justify-content-center">
                 {file ? (
-                  <div>
+                  <div className="image-container position-relative">
                     <img
                       src={URL.createObjectURL(file)}
                       alt="nouveau post"
                       className="image-post"
                     />
-                    <button className="btn" onClick={() => setFile("")}>
-                      <FontAwesomeIcon icon="fa-rectangle-xmark" />
-                    </button>
+                    <div className="position-absolute top-0 start-0">
+                      <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={deleteImageTooltip}
+                      >
+                        <button className="btn" onClick={() => setFile("")}>
+                          <FontAwesomeIcon icon="fa-rectangle-xmark" />
+                        </button>
+                      </OverlayTrigger>
+                    </div>
                   </div>
                 ) : avatarUrl ? (
-                  <div>
-                    <button
-                      type="button"
-                      className="btn"
-                      onClick={() => {
-                        setFile("");
-                        setAvatarUrl("");
-                      }}
-                    >
-                      <FontAwesomeIcon icon="fa-rectangle-xmark" />
-                    </button>
+                  <div className="image-container position-relative">
                     <img
                       src={avatarUrl}
                       alt="nouveau post"
                       className="image-post"
                     />
+                    <div className="position-absolute top-0 start-0">
+                      <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={deleteImageTooltip}
+                      >
+                        <button
+                          type="button"
+                          className="btn"
+                          onClick={() => {
+                            setFile("");
+                            setAvatarUrl("");
+                          }}
+                        >
+                          <FontAwesomeIcon icon="fa-rectangle-xmark" />
+                        </button>
+                      </OverlayTrigger>
+                    </div>
                   </div>
                 ) : (
                   <FontAwesomeIcon
@@ -181,7 +211,7 @@ function UpdateProfil() {
                 className="d-flex justify-content-center"
                 htmlFor="avatarFile"
               >
-                <div className="text-light bg-dark rounded p-1 clickable">
+                <div className="text-light bg-dark rounded p-1 clickable mt-2">
                   Télécharger une image
                   <FontAwesomeIcon icon="fa-upload" className="ms-2" />
                 </div>

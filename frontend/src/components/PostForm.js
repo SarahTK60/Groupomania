@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Postformheader from "./PostFormHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 function PostForm(props) {
   const [textContent, setTextContent] = useState("");
@@ -19,6 +20,18 @@ function PostForm(props) {
     }
   };
 
+  const addImageTooltip = (props) => (
+    <Tooltip id="button-addImage-tooltip" {...props}>
+      Ajouter une image
+    </Tooltip>
+  );
+
+  const deleteImageTooltip = (props) => (
+    <Tooltip id="button-deleteImage-tooltip" {...props}>
+      Supprimer l'image
+    </Tooltip>
+  );
+
   return (
     <section className="container-fluid container border border-dark mb-3 px-0 shadow post-card">
       <Postformheader />
@@ -36,16 +49,22 @@ function PostForm(props) {
             <input
               type="text"
               name="textContent"
-              className="form-control me-2"
+              className="form-control me-2 mb-2"
               id="textContent"
               onChange={(e) => setTextContent(e.target.value)}
               value={textContent}
             />
 
             <label className="label-file" htmlFor="file">
-              <div className="btn btn-outline-dark">
-                <FontAwesomeIcon icon="fa-solid fa-image" />
-              </div>
+              <OverlayTrigger
+                placement="top"
+                delay={{ show: 250, hide: 400 }}
+                overlay={addImageTooltip}
+              >
+                <div className="btn btn-outline-dark">
+                  <FontAwesomeIcon icon="fa-solid fa-image" />
+                </div>
+              </OverlayTrigger>
             </label>
             <input
               className="input-file"
@@ -58,15 +77,24 @@ function PostForm(props) {
           </div>
 
           {file && (
-            <div>
+            <div className="image-container position-relative">
               <img
                 src={URL.createObjectURL(file)}
                 alt="nouveau post"
                 className="image-post"
               />
-              <button className="btn" onClick={() => setFile("")}>
-                <FontAwesomeIcon icon="fa-rectangle-xmark" />
-              </button>
+              <div className="position-absolute top-0 start-0">
+                <OverlayTrigger
+                  placement="top"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={deleteImageTooltip}
+                >
+                  <button className="btn" onClick={() => setFile("")}>
+                    <FontAwesomeIcon className="text-primary" icon="fa-xmark" />
+                  </button>
+                </OverlayTrigger>
+              </div>
+              
             </div>
           )}
         </div>

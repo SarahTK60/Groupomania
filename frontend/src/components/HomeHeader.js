@@ -18,7 +18,7 @@ function HomeHeader() {
 
   return (
     <Navbar bg="dark" expand="false" className="mb-3" fixed="top">
-      <Container fluid>
+      <Container fluid className="header-nav-container">
         <Navbar.Brand>
           <div className="d-flex">
             <img

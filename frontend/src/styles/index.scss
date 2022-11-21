@@ -34,6 +34,11 @@ code {
   margin-top: 80px;
 }
 
+.header-nav-container {
+  max-width: 1000px;
+  margin: auto;
+}
+
 .defaultavatar {
   width: 40px;
   height: 40px;
@@ -67,9 +72,8 @@ code {
   width: 100%;
   height: auto;
   max-height: 400px;
-  max-width: 700px;
   object-fit: contain;
-  object-position: center top;
+  object-position: left top;
   margin: auto;
   padding: 0;
 }
