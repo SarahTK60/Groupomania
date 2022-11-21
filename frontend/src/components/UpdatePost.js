@@ -34,8 +34,20 @@ function UpdatePost(props) {
   };
 
   const updatePostTooltip = (props) => (
-    <Tooltip id="button-addImage-tooltip" {...props}>
+    <Tooltip id="button-addPostImage-tooltip" {...props}>
       Modifier la publication
+    </Tooltip>
+  );
+
+  const deleteImageTooltip = (props) => (
+    <Tooltip id="button-deletePostImage-tooltip" {...props}>
+      Supprimer l'image
+    </Tooltip>
+  );
+
+  const downloadImageTooltip = (props) => (
+    <Tooltip id="button-dowloadPostImage-tooltip" {...props}>
+      Télécharger une image
     </Tooltip>
   );
 
@@ -63,19 +75,28 @@ function UpdatePost(props) {
             className="align-items-center p-4"
           >
             <div className="mb-3">
-              <input
-                type="text"
-                name="textContent"
-                className="form-control"
-                id="textContent"
-                onChange={(e) => setTextContent(e.target.value)}
-                value={textContent}
-              />
-              {/* <p className='content error'></p> */}
-
-              <label className="label-file" htmlFor="imagefile">
-                <FontAwesomeIcon icon="fa-solid fa-image" />
-              </label>
+              <div className="d-flex">
+                <input
+                  type="text"
+                  name="textContent"
+                  className="form-control me-2"
+                  id="textContent"
+                  onChange={(e) => setTextContent(e.target.value)}
+                  value={textContent}
+                />
+                {/* <p className='content error'></p> */}
+                <OverlayTrigger
+                  placement="top"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={downloadImageTooltip}
+                >
+                  <label className="label-file" htmlFor="imagefile">
+                    <div className="btn btn-outline-dark">
+                      <FontAwesomeIcon icon="fa-solid fa-image" />
+                    </div>
+                  </label>
+                </OverlayTrigger>
+              </div>
               <input
                 className="input-file"
                 type="file"
@@ -85,19 +106,27 @@ function UpdatePost(props) {
               />
 
               {file ? (
-                <div>
+                <div className="image-container position-relative">
                   <img
                     src={URL.createObjectURL(file)}
                     alt="nouveau post"
-                    className="image-post"
+                    className="image-form"
                   />
-                  <button
-                    type="button"
-                    className="btn"
-                    onClick={() => setFile("")}
-                  >
-                    <FontAwesomeIcon icon="fa-rectangle-xmark" />
-                  </button>
+                  <div className="position-absolute top-0 start-0">
+                    <OverlayTrigger
+                      placement="top"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={deleteImageTooltip}
+                    >
+                      <button
+                        type="button"
+                        className="btn"
+                        onClick={() => setFile("")}
+                      >
+                        <FontAwesomeIcon icon="fa-rectangle-xmark" />
+                      </button>
+                    </OverlayTrigger>
+                  </div>
                 </div>
               ) : imageUrl ? (
                 <div>
@@ -114,7 +143,7 @@ function UpdatePost(props) {
                   <img
                     src={imageUrl}
                     alt="nouveau post"
-                    className="image-post"
+                    className="image-form"
                   />
                 </div>
               ) : null}

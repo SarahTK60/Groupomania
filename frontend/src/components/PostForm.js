@@ -81,7 +81,7 @@ function PostForm(props) {
               <img
                 src={URL.createObjectURL(file)}
                 alt="nouveau post"
-                className="image-post"
+                className="image-form"
               />
               <div className="position-absolute top-0 start-0">
                 <OverlayTrigger

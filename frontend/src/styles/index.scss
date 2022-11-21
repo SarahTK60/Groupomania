@@ -67,13 +67,24 @@ code {
   margin: 0; 
 }
 
-.image-post {
+.image-form {
   background-color: white;
   width: 100%;
   height: auto;
   max-height: 400px;
   object-fit: contain;
   object-position: left top;
+  margin: auto;
+  padding: 0;
+}
+
+.image-post {
+  background-color: white;
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+  object-position: center top;
   margin: auto;
   padding: 0;
 }

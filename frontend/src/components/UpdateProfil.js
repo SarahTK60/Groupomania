@@ -38,7 +38,7 @@ function UpdateProfil() {
     }
   };
 
-  const deleteImageTooltip = (props) => (
+  const deleteAvatarTooltip = (props) => (
     <Tooltip id="button-deleteAvatar-tooltip" {...props}>
       Supprimer l'avatar
     </Tooltip>
@@ -148,13 +148,13 @@ function UpdateProfil() {
                     <img
                       src={URL.createObjectURL(file)}
                       alt="nouveau post"
-                      className="image-post"
+                      className="image-form"
                     />
                     <div className="position-absolute top-0 start-0">
                       <OverlayTrigger
                         placement="top"
                         delay={{ show: 250, hide: 400 }}
-                        overlay={deleteImageTooltip}
+                        overlay={deleteAvatarTooltip}
                       >
                         <button className="btn" onClick={() => setFile("")}>
                           <FontAwesomeIcon icon="fa-rectangle-xmark" />
@@ -167,13 +167,13 @@ function UpdateProfil() {
                     <img
                       src={avatarUrl}
                       alt="nouveau post"
-                      className="image-post"
+                      className="image-form"
                     />
                     <div className="position-absolute top-0 start-0">
                       <OverlayTrigger
                         placement="top"
                         delay={{ show: 250, hide: 400 }}
-                        overlay={deleteImageTooltip}
+                        overlay={deleteAvatarTooltip}
                       >
                         <button
                           type="button"
