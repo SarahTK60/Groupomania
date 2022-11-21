@@ -55,15 +55,14 @@ Scénario : Pour améliorer la communication entre collègues, Groupomania souha
   <li>Page d'accueil
     <ul>
       <li>Publications de tous les utilisateurs listées de façon antéchronologique</li>
-      <li>Possibilité pour l'utilisateur de pouvoir créer une publication, la modifier et la supprimer</li>
+      <li>Possibilité pour l'utilisateur de créer une publication, de la modifier et de la supprimer</li>
       <li>Une publication doit pouvoir contenir du texte et une image</li>
-      <li>Un utilisateur doit pouvoir "liker" une publication une seule fois
-Compte administrateur</li>
+      <li>Un utilisateur doit pouvoir "liker" une publication une seule fois</li>
     </ul>
   </li>
   <li>Compte administrateur
     <ul>
-      <li>un utilisateur "administrateur" aura la possibilité de modifier et supprimer les publications de tous les utilisateurs dans un but de modération</li>
+      <li>Un utilisateur "administrateur" doit pouvoir modifier et supprimer les publications de tous les utilisateurs dans un but de modération</li>
     </ul>
   </li>
   <li>UI
@@ -111,13 +110,13 @@ Compte administrateur</li>
    git clone https://github.com/SarahTK60/Groupomania
    ```
 
-2. Créer un cluster sur MongoAtlas
-    Un fichier .env exemple à compléter avec vos variables d'environnement est fourni
+2. Préparer l'environnement et la base de données
 
-    Un échantillon de données vous a été fourni : 
-    Un fichier json de données importable sur mongoAtlas et des fichiers images dans le backend
+    Créer un cluster sur MongoAtlas.
 
-    Ces fichiers sont normalement ignorés dans .gitignore 
+    Un échantillon de données vous a été fourni (Un fichier de données au format json importable sur mongoAtlas et des fichiers images dans le backend).
+
+    Des fichiers .env à compléter avec vos variables d'environnement sont fournis.
 
 4. Se placer dans le dossier backend à partir d'un terminal
    ```sh
@@ -140,7 +139,7 @@ Compte administrateur</li>
    ```sh
    cd backend
    ```
-8. Installer NPM et les modules Node du Frontend
+8. Installer les modules Node du Frontend
    ```sh
    npm install
    ```
