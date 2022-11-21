@@ -120,10 +120,7 @@ exports.modifyUser = (req, res) => {
     });
 };
 
-
-
 // Removes the user with the id provided in database
-// Delete All the posts created by the user
 exports.deleteUser = (req, res) => {
   User.findById(req.params.id)
     .then((user) => {

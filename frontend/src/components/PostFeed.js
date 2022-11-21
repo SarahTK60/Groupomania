@@ -9,7 +9,6 @@ function PostFeed() {
   const [posts, setPosts] = useState("");
 
   useEffect(() => {
-    console.log("effect");
     getAllPosts();
   }, []);
 
@@ -55,10 +54,7 @@ function PostFeed() {
         transformRequest: () => postData,
       })
         .then((res) => {
-          console.log(res);
           const NewPostList = [...posts, res.data.post];
-          console.log(NewPostList);
-          console.log("DATA" + res.data.post);
           setPosts(NewPostList);
           console.log("post envoyé !");
         })

@@ -105,7 +105,7 @@ function Login() {
         ></Form.Text>
       </Form.Group>
       {/* Submit error */}
-      <div className="text-primary" ref={refLoginError}></div>
+      <div className="text-primary mb-4" ref={refLoginError}></div>
       <div className="text-center">
         <Button
           variant="dark"

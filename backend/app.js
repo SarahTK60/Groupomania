@@ -7,7 +7,6 @@ const helmet = require('helmet');
 // import routers
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
-const usersRoutes = require('./routes/users');
 const postRoutes = require('./routes/post');
 // import path plugin to access directories and file paths
 const path = require('path');
@@ -41,7 +40,6 @@ app.use(express.json());
 // Defines routes
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
-app.use('/api/users', usersRoutes);
 app.use('/api/posts', postRoutes);
 // To store images locally
 app.use('/images', express.static(path.join(__dirname, 'images')));

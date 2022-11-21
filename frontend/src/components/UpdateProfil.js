@@ -101,7 +101,6 @@ function UpdateProfil() {
         })
           .then((res) => {
             const response = res.data.userObject;
-            console.log(response);
             const userUpdated = authenticatedUser;
             if (firstname) {
               userUpdated.firstname = firstname;
@@ -116,25 +115,14 @@ function UpdateProfil() {
             } else {
               userUpdated.avatarUrl = "";
             }
-            console.log(userUpdated);
             setAuthenticatedUser(userUpdated);
           })
           .catch((err) => {
             console.log(err);
-            console.log(err.response.status);
-            if (err.response.status === 401) {
-              console.log(err.response.data.message);
-            }
-            if (err.response.status === 500) {
-              console.log(err.response.data.message);
-            }
           });
       } else {
         refSubmitError.current.innerText =
           "Erreur: Vérifiez les informations saisies dans le formulaire !";
-        console.log(
-          "Erreur: Vérifiez les informations saisies dans le formulaire !"
-        );
       }
     }
     setShow(false);

@@ -31,10 +31,6 @@ function App() {
         },
       })
         .then((res) => {
-          if (res.data.errors) {
-            console.log("erreur res.data.errors true");
-          }
-          console.log(res.data);
           setAuthenticatedUser(res.data);
           return true;
         })

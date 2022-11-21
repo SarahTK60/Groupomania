@@ -151,15 +151,12 @@ function SignUp() {
         })
         .catch((err) => {
           console.log(err);
-          console.log(err.response.status);
           if (err.response.status === 401) {
-            console.log(err.response.data.message);
             refEmailError.current.innerText = err.response.data.message;
           }
         });
     } else {
       refSubmitError.current.innerText = "Erreur: Vérifiez les informations saisies dans le formulaire !";
-      console.log("Erreur: Vérifiez les informations saisies dans le formulaire !");
     }
   };
 
@@ -337,7 +334,7 @@ function SignUp() {
         ></Form.Text>
       </Form.Group>
       {/* Submit error */}
-      <div className="text-primary" ref={refSubmitError}></div>
+      <div className="text-primary mb-4" ref={refSubmitError}></div>
       <div className="text-center">
         <Button
           variant="dark"

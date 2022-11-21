@@ -9,7 +9,6 @@ function DeleteUser() {
     AuthenticatedUserContext
   );
   const [show, setShow] = useState(false);
-  console.log(authenticatedUser);
 
   const handleDeleteUser = (userId) => {
     axios({

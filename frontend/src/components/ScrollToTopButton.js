@@ -6,7 +6,6 @@ function ScrollToTopButton() {
   const [backToTopButton, setBackToTopButton] = useState(false);
 
   useEffect(() => {
-    console.log("effect");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 100) {
         setBackToTopButton(true);
