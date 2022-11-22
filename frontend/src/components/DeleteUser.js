@@ -18,21 +18,29 @@ function DeleteUser() {
         Authorization: JSON.parse(localStorage.getItem("token")),
       },
     })
-      .then((res) => {
-        console.log(res);
-        if (res.data.errors) {
-          console.log(res.data.errors);
-        }
-      })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  const handleDeleterAllUserPosts = (userId) => {
+    axios({
+      method: "delete",
+      url: process.env.REACT_APP_BASE_URL + "api/posts/user/" + userId,
+      headers: {
+        Authorization: JSON.parse(localStorage.getItem("token")),
+      },
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleConfirm = (e) => {
     e.preventDefault();
+    handleDeleterAllUserPosts(authenticatedUser._id);
     handleDeleteUser(authenticatedUser._id);
     if (typeof Storage !== "undefined") {
       if (localStorage.getItem("token") !== null) {

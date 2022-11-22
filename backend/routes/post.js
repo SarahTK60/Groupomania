@@ -38,7 +38,9 @@ router.delete('/admin/:id', auth, isAdmin, postCtrl.deletePostByAdmin);
 // Route that adds/removes a like/dislike to a post with the id provided
 router.post('/:id/like', auth, postCtrl.likePost);
 
-
+// DELETE /api/posts/user/:id
+// Route that removes all user posts
+router.delete('/user/:id', auth, postCtrl.deleteAllUserPosts);
 
 
 module.exports = router;

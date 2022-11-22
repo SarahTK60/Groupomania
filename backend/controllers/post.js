@@ -248,7 +248,6 @@ exports.likePost = (req, res, next) => {
           .then(() => {
             res.status(200).json({ likesCount: post.likesCount + 1 });
           })
-          // .then(() => { res.status(200).json({ message: 'Post liké !' })})
           .catch((error) => res.status(401).json({ error }));
       } else if (post.likersId.includes(req.userId)) {
         Post.updateOne(
@@ -258,11 +257,38 @@ exports.likePost = (req, res, next) => {
           .then(() => {
             res.status(200).json({ likesCount: post.likesCount - 1 });
           })
-          // .then(() => res.status(200).json({ message: 'Like annulé !' }))
           .catch((error) => res.status(401).json({ error }));
       } else {
         res.status(401).json({ message: "Not authorized" });
       }
+    })
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
+};
+
+exports.deleteAllUserPosts = (req, res) => {
+  Post.find({ authorId: req.params.id })
+    .then((posts) => {
+      const userId = req.userId;
+      for (var i in posts) {
+        const post = posts[i];
+        if (post.authorId !== userId) {
+          res.status(401).json({ message: "Not authorized" });
+        } else {
+          if (post.imageContentUrl) {
+            const filename = post.imageContentUrl.split("/images/")[1];
+            fs.unlink(`images/${filename}`, () => {
+              Post.deleteOne({ _id: post._id })
+                .catch((error) => res.status(401).json({ error }));
+            });
+          } else {
+            Post.deleteOne({ _id: post._id })
+              .catch((error) => res.status(401).json({ error }));
+          }
+        }
+      }
+      res.status(200).json("Tous les messages de l'utilisateur supprimés");
     })
     .catch((error) => {
       res.status(500).json({ error });
