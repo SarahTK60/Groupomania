@@ -19,6 +19,7 @@ function DeleteUser() {
       },
     })
       .then((res) => {
+        console.log(res);
         if (res.data.errors) {
           console.log(res.data.errors);
         }
@@ -40,7 +41,6 @@ function DeleteUser() {
     }
     setShow(false);
     setAuthenticatedUser(null);
-    window.location = "/";
   };
 
   return (

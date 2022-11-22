@@ -26,7 +26,7 @@ router.put('/:id', auth, multer, userCtrl.modifyUser);
 
 // DELETE /api/user/:id
 // Route that removes the user with the id provided in database 
-router.delete('/:id', auth, multer, userCtrl.deleteUser);
+router.delete('/:id', auth, userCtrl.deleteUser);
 
 
 
