@@ -78,7 +78,7 @@ exports.modifyUser = (req, res) => {
     .then((user) => {
       if (req.params.id !== req.userId) {
         res.status(401).json({ message: "Not authorized" });
-      } else if (req.body.image && user.avatarUrl) {
+      } else if (req.file && user.avatarUrl) {
         // Change image
         const filename = user.avatarUrl.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
@@ -89,7 +89,7 @@ exports.modifyUser = (req, res) => {
             .then(() => res.status(200).json({ userObject }))
             .catch((error) => res.status(401).json({ error }));
         });
-      } else if (!req.body.image && !req.body.keepPreviousAvatar) {
+      } else if (!req.file && !req.body.keepPreviousAvatar) {
         // Delete avatar
         const filename = user.avatarUrl.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
