@@ -80,14 +80,9 @@ function UpdateProfil() {
         if (file) {
           updatedUser.append("image", file);
         }
-        if (avatarUrl) {
-          updatedUser.append("keepPreviousAvatar", true);
-        } else if (!avatarUrl) {
-          updatedUser.append("keepPreviousAvatar", false);
-        }
         updatedUser.append("firstname", firstname);
         updatedUser.append("lastname", lastname);
-
+        updatedUser.append("avatarUrl", avatarUrl);
         axios({
           method: "put",
           url:
