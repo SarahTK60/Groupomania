@@ -151,7 +151,6 @@ function UpdateIdentifiers() {
             email: email,
           };
           setAuthenticatedUser(updatedUser);
-          console.log(res);
         })
         .catch((err) => {
           console.log(err);

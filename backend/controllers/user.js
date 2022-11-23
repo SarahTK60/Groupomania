@@ -40,28 +40,6 @@ exports.getOneUser = (req, res) => {
     .catch((error) => res.status(404).json({ error }));
 };
 
-// Adds a new user in database
-exports.addUser = (req, res) => {
-  const userObject = JSON.parse(req.body.user);
-  delete userObject._id;
-  delete userObject._userId;
-  const user = new User({
-    ...userObject,
-    userId: req.userId,
-    avatar: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
-    role: 0,
-  });
-
-  user
-    .save()
-    .then(() => {
-      res.status(201).json({ message: "Utilisateur enregistré !" });
-    })
-    .catch((error) => {
-      res.status(400).json({ error });
-    });
-};
-
 // Updates the user with the id provided in database
 // Updates firstname and/or lastname and/or avatar
 exports.modifyUser = (req, res) => {
@@ -73,10 +51,10 @@ exports.modifyUser = (req, res) => {
     Post.updateMany(
       { authorId: req.params.id },
       { authorAvatarUrl: newAvatarUrl }
-    ).catch((error) => res.status(401).json({ error }));
+    ).catch((error) => res.status(400).json({ error }));
   } else if (!req.file && !req.body.avatarUrl) {
     Post.updateMany({ authorId: req.params.id }, { authorAvatarUrl: "" }).catch(
-      (error) => res.status(401).json({ error })
+      (error) => res.status(400).json({ error })
     );
   }
 
@@ -98,7 +76,7 @@ exports.modifyUser = (req, res) => {
         fs.unlink(`images/${filename}`, () => {
           User.updateOne({ _id: req.params.id }, { $set: { ...userObject } })
             .then(() => res.status(200).json({ userObject }))
-            .catch((error) => res.status(401).json({ error }));
+            .catch((error) => res.status(400).json({ error }));
         });
       } else if (!req.file && !req.body.avatarUrl) {
         // Delete avatar
@@ -114,17 +92,17 @@ exports.modifyUser = (req, res) => {
             }
           )
             .then(() => res.status(200).json({ userObject }))
-            .catch((error) => res.status(401).json({ error }));
+            .catch((error) => res.status(400).json({ error }));
         });
       } else {
         // Update user without change avatar
         User.updateOne({ _id: req.params.id }, { $set: { ...userObject } })
           .then(() => res.status(200).json({ userObject }))
-          .catch((error) => res.status(401).json({ error }));
+          .catch((error) => res.status(400).json({ error }));
       }
     })
     .catch((error) => {
-      res.status(400).json({ error });
+      res.status(500).json({ error });
     });
 };
 
@@ -141,14 +119,14 @@ exports.deleteUser = (req, res) => {
             .then(() =>
               res.status(200).json({ message: "Utilisateur supprimé !" })
             )
-            .catch((error) => res.status(401).json({ error }));
+            .catch((error) => res.status(400).json({ error }));
         });
       } else {
         User.deleteOne({ _id: req.params.id })
           .then(() => {
             res.status(200).json({ message: "Utilisateur supprimé !" });
           })
-          .catch((error) => res.status(401).json({ error }));
+          .catch((error) => res.status(400).json({ error }));
       }
     })
     .catch((error) => {
@@ -202,7 +180,7 @@ exports.modifyIdentifiersUser = (req, res) => {
             .then(() =>
               res.status(200).json({ message: "identifiants modifiés" })
             )
-            .catch((error) => res.status(401).json({ error }));
+            .catch((error) => res.status(400).json({ error }));
         }
       }
     })

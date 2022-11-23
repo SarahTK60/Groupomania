@@ -16,10 +16,6 @@ router.get("/", auth, userCtrl.getAuthUser);
 // Route that returns the user with the id provided
 router.get("/:id", auth, userCtrl.getOneUser);
 
-// POST /api/user/
-// Route that adds a new user in database
-router.post("/", userCtrl.addUser);
-
 // PUT /api/user/:id
 // Route that updates the user with the id provided in database
 router.put("/:id", auth, multer, userCtrl.modifyUser);

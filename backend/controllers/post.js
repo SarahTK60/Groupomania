@@ -146,7 +146,7 @@ exports.modifyPostByAdmin = (req, res) => {
             }
           )
             .then(() => res.status(200).json({ postObject }))
-            .catch((error) => res.status(401).json({ error }));
+            .catch((error) => res.status(400).json({ error }));
         });
       } else if (!req.file && !req.body.keepPreviousImage) {
         // Delete image
@@ -163,7 +163,7 @@ exports.modifyPostByAdmin = (req, res) => {
             }
           )
             .then(() => res.status(200).json({ postObject }))
-            .catch((error) => res.status(401).json({ error }));
+            .catch((error) => res.status(400).json({ error }));
         });
       } else {
         // Update post without delete previous image
@@ -177,7 +177,7 @@ exports.modifyPostByAdmin = (req, res) => {
           }
         )
           .then(() => res.status(200).json({ postObject }))
-          .catch((error) => res.status(401).json({ error }));
+          .catch((error) => res.status(400).json({ error }));
       }
     })
     .catch((error) => {
@@ -197,14 +197,14 @@ exports.deletePost = (req, res) => {
           fs.unlink(`images/${filename}`, () => {
             Post.deleteOne({ _id: req.params.id })
               .then(() => res.status(200).json({ message: "Post supprimé !" }))
-              .catch((error) => res.status(401).json({ error }));
+              .catch((error) => res.status(400).json({ error }));
           });
         } else {
           Post.deleteOne({ _id: req.params.id })
             .then(() => {
               res.status(200).json({ message: "Post supprimé !" });
             })
-            .catch((error) => res.status(401).json({ error }));
+            .catch((error) => res.status(400).json({ error }));
         }
       }
     })
@@ -222,14 +222,14 @@ exports.deletePostByAdmin = (req, res) => {
         fs.unlink(`images/${filename}`, () => {
           Post.deleteOne({ _id: req.params.id })
             .then(() => res.status(200).json({ message: "Post supprimé !" }))
-            .catch((error) => res.status(401).json({ error }));
+            .catch((error) => res.status(400).json({ error }));
         });
       } else {
         Post.deleteOne({ _id: req.params.id })
           .then(() => {
             res.status(200).json({ message: "Post supprimé !" });
           })
-          .catch((error) => res.status(401).json({ error }));
+          .catch((error) => res.status(400).json({ error }));
       }
     })
     .catch((error) => {
@@ -248,7 +248,7 @@ exports.likePost = (req, res, next) => {
           .then(() => {
             res.status(200).json({ likesCount: post.likesCount + 1 });
           })
-          .catch((error) => res.status(401).json({ error }));
+          .catch((error) => res.status(400).json({ error }));
       } else if (post.likersId.includes(req.userId)) {
         Post.updateOne(
           { _id: req.params.id },
@@ -257,7 +257,7 @@ exports.likePost = (req, res, next) => {
           .then(() => {
             res.status(200).json({ likesCount: post.likesCount - 1 });
           })
-          .catch((error) => res.status(401).json({ error }));
+          .catch((error) => res.status(400).json({ error }));
       } else {
         res.status(401).json({ message: "Not authorized" });
       }
@@ -280,11 +280,11 @@ exports.deleteAllUserPosts = (req, res) => {
             const filename = post.imageContentUrl.split("/images/")[1];
             fs.unlink(`images/${filename}`, () => {
               Post.deleteOne({ _id: post._id })
-                .catch((error) => res.status(401).json({ error }));
+                .catch((error) => res.status(400).json({ error }));
             });
           } else {
             Post.deleteOne({ _id: post._id })
-              .catch((error) => res.status(401).json({ error }));
+              .catch((error) => res.status(400).json({ error }));
           }
         }
       }

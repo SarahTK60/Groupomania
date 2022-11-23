@@ -12,8 +12,4 @@ router.post('/signup', signUpLimiter, validPassword, authCtrl.signup);
 // Route that checks user credentials, returns user id and token
 router.post('/login', loginLimiter, authCtrl.login);
 
-// GET /api/auth/
-// Route that checks if a user is authenticated
-router.get('/', authCtrl.checkAuth);
-
 module.exports = router;

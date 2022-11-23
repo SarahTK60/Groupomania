@@ -32,7 +32,7 @@ exports.signup = (req, res) => {
           user
             .save()
             .then(() =>
-              res.status(200).json({
+              res.status(201).json({
                 userId: user._id,
                 token: jwt.sign({ userId: user._id }, process.env.TOKEN_KEY, {
                   expiresIn: "24h",
@@ -76,22 +76,4 @@ exports.login = (req, res) => {
         .catch((error) => res.status(500).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
-};
-
-exports.checkAuth = (req, res) => {
-  // Check authentication and return userId
-  try {
-    const token = req.headers.authorization;
-    if (!token) {
-      return res.status(401).json({ message: "No token" });
-    }
-    jwt.verify(token, process.env.TOKEN_KEY, (err, decodedToken) => {
-      if (err) {
-        return res.status(401).json({ message: "Bad token" });
-      }
-      res.status(200).json({ userId: decodedToken.userId });
-    });
-  } catch (error) {
-    res.status(401).json({ error });
-  }
 };

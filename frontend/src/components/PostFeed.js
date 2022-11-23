@@ -24,8 +24,8 @@ function PostFeed() {
         const allPosts = res.data;
         setPosts(allPosts);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -56,7 +56,6 @@ function PostFeed() {
         .then((res) => {
           const NewPostList = [...posts, res.data.post];
           setPosts(NewPostList);
-          console.log("post envoyé !");
         })
         .catch((err) => {
           console.log(err);
@@ -73,9 +72,6 @@ function PostFeed() {
       },
     })
       .then((res) => {
-        if (res.data.errors) {
-          console.log("erreur res.data.errors true");
-        }
         const likesCount = res.data.likesCount;
         const IdxOfpostToUpdt = posts.findIndex((post) => post._id === postId);
         const newPostsList = posts.filter((p) => p._id !== postId);
@@ -110,7 +106,6 @@ function PostFeed() {
             (post) => post._id === postId
           );
           const response = res.data.postObject;
-          console.log(response);
           const newPost = posts.find((p) => p._id === postId);
           const newPostsList = posts.filter((p) => p._id !== postId);
           newPost.textContent = textContent;
@@ -124,10 +119,9 @@ function PostFeed() {
           newPost.update_date = response.update_date;
           newPostsList.splice(IdxOfpostToUpdt, 0, newPost);
           setPosts(newPostsList);
-          console.log("post modifié !");
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+          console.log(err);
         });
     }
   };
@@ -153,7 +147,6 @@ function PostFeed() {
             (post) => post._id === postId
           );
           const response = res.data.postObject;
-          console.log(response);
           const newPost = posts.find((p) => p._id === postId);
           const newPostsList = posts.filter((p) => p._id !== postId);
           newPost.textContent = textContent;
@@ -167,10 +160,9 @@ function PostFeed() {
           newPost.update_date = response.update_date;
           newPostsList.splice(IdxOfpostToUpdt, 0, newPost);
           setPosts(newPostsList);
-          console.log("post modifié !");
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+          console.log(err);
         });
     }
   };
@@ -184,9 +176,6 @@ function PostFeed() {
       },
     })
       .then((res) => {
-        if (res.data.errors) {
-          console.log(res.data.errors);
-        }
         setPosts((current) =>
           current.filter((posts) => {
             return posts._id !== postId;
@@ -207,9 +196,6 @@ function PostFeed() {
       },
     })
       .then((res) => {
-        if (res.data.errors) {
-          console.log(res.data.errors);
-        }
         setPosts((current) =>
           current.filter((posts) => {
             return posts._id !== postId;
