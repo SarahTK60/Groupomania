@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
+const bcrypt = require("bcrypt");
 const fs = require("fs");
 
 // Returns an array of all users in database
@@ -69,11 +70,14 @@ exports.modifyUser = (req, res) => {
     newAvatarUrl = `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`;
-    Post.updateMany({ authorId: req.params.id }, { authorAvatarUrl: newAvatarUrl})
-      .catch((error) => res.status(401).json({ error }));
+    Post.updateMany(
+      { authorId: req.params.id },
+      { authorAvatarUrl: newAvatarUrl }
+    ).catch((error) => res.status(401).json({ error }));
   } else if (!req.file && !req.body.avatarUrl) {
-    Post.updateMany({ authorId: req.params.id }, { authorAvatarUrl: ""})
-      .catch((error) => res.status(401).json({ error }));
+    Post.updateMany({ authorId: req.params.id }, { authorAvatarUrl: "" }).catch(
+      (error) => res.status(401).json({ error })
+    );
   }
 
   const userObject = req.file
@@ -145,6 +149,61 @@ exports.deleteUser = (req, res) => {
             res.status(200).json({ message: "Utilisateur supprimé !" });
           })
           .catch((error) => res.status(401).json({ error }));
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
+};
+
+exports.modifyIdentifiersUser = (req, res) => {
+  // Check if the email is already used by another user than authenticated user himself
+  User.findOne({ email: req.body.email, _id: { $ne: req.userId } }).then(
+    (user) => {
+      if (user) {
+        return res
+          .status(401)
+          .json({ message: "Cette adresse mail est déjà utilisée" });
+      }
+    }
+  );
+
+  User.findById(req.params.id)
+    .then(() => {
+      if (req.params.id !== req.userId) {
+        res.status(401).json({ message: "Not authorized" });
+      } else {
+        if (req.body.password) {
+          bcrypt
+            .hash(req.body.password, 10)
+            .then((hash) => {
+              User.updateOne(
+                { _id: req.params.id },
+                {
+                  $set: {
+                    email: req.body.email,
+                    password: hash,
+                  },
+                }
+              )
+                .then(() =>
+                  res.status(200).json({ message: "identifiants modifiés" })
+                )
+                .catch((error) => res.status(401).json({ error }));
+            })
+            .catch((error) => {
+              res.status(400).json({ error });
+            });
+        } else {
+          User.updateOne(
+            { _id: req.params.id },
+            { $set: { email: req.body.email } }
+          )
+            .then(() =>
+              res.status(200).json({ message: "identifiants modifiés" })
+            )
+            .catch((error) => res.status(401).json({ error }));
+        }
       }
     })
     .catch((error) => {
